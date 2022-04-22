@@ -12,8 +12,7 @@ poweroff () {
     echo "Intiated at $(date)." >> script.log
     cat script.log
     sleep 60
-    echo "poweroff"
-    # sudo poweroff
+    sudo poweroff
 }
 
 day_of_week () {
