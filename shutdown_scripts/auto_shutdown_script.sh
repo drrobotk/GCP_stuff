@@ -76,11 +76,6 @@ poweroff_triggers () {
     # Function to apply the triggers to poweroff the VM, where the triggers to
     # check are specified in a dictionary.
 
-    # Get flags for each trigger.
-    day_of_week_check=$(get_dict "day_of_week" "${trigger_check_dict[@]}")
-    time_of_day_check=$(get_dict "time_of_day" "${trigger_check_dict[@]}")
-    load_average_check=$(get_dict "load_average" "${trigger_check_dict[@]}")
-
     # If the flag is true, then apply the triggers.
     if [ $day_of_week_check == "true" ]
     then
@@ -127,6 +122,11 @@ main () {
     echo "-------------------------------------------------------------------------------------------------------------------------" >> script.log
     echo "Started script at: $(date)." >> script.log
 
+    # Get flags for each trigger.
+    day_of_week_check=$(get_dict "day_of_week" "${trigger_check_dict[@]}")
+    time_of_day_check=$(get_dict "time_of_day" "${trigger_check_dict[@]}")
+    load_average_check=$(get_dict "load_average" "${trigger_check_dict[@]}")
+    
     while true
     do
         poweroff_triggers
