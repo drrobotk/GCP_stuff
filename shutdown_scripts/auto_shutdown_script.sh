@@ -111,8 +111,7 @@ get_dict_val () {
 	for index in "${_dict[@]}"
 	do
 		key="${index%%:*}"
-		value="${index##*:}"
-
+        
         # If the key matches the one specified, return the value and break the
         # for loop.
 		if [ $key == $_key ]
