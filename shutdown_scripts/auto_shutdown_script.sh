@@ -3,6 +3,16 @@
 # This script is used to automatically shutdown a VM instance on GCP using a number of triggers.
 # Author: Dr. Usman Kayani.
 
+# Declare the variables for the triggers.
+_threshold=2.0 # Load average threshold.
+consecutive_checks=3 # Number of consecutive checks to check if VM is idle.
+trigger_check_dict=(
+    "day_of_week:true"
+    "time_of_day:true"
+    "load_average:false"
+) 
+trigger_interval=30 # Trigger interval in minutes
+
 poweroff () {
     # Function to poweroff the VM, with the reason and date appended to the
     # logfile.
@@ -134,15 +144,5 @@ main () {
     done
 }
 
-# Declare the variables and run the main function.
-
-_threshold=2.0 # Load average threshold.
-consecutive_checks=3 # Number of consecutive checks to check if VM is idle.
-trigger_check_dict=(
-    "day_of_week:true"
-    "time_of_day:true"
-    "load_average:false"
-) 
-trigger_interval=30 # Trigger interval in minutes
-
+# Run the main function.
 main
