@@ -11,7 +11,7 @@ This module provides the following functions:
 * :func:`get_cpu_usage`
 """
 
-import requests, os, psutil, time, logging
+import requests, os, psutil, time, logging, yaml
 
 # Declare global variables for trigger configuration.
 CPU_threshold = 90
@@ -23,31 +23,36 @@ trigger_check_period = 1 # In minutes.
 trigger_conf = {
     'cpu': {
         'enabled': True,
-        'threshold': CPU_threshold
+        'threshold': CPU_threshold,
+        'action': 'sms'
     },
     'ram': {
         'enabled': True,
-        'threshold': RAM_threshold
+        'threshold': RAM_threshold,
+        'action': 'sms'
     },
     'load': {
         'enabled': True,
-        'threshold': load_threshold
+        'threshold': load_threshold,
+        'action': 'sms'
     },
     'return_status': {
         'enabled': True,
-        'values': return_status_vals
+        'values': return_status_vals,
+        'action': 'sms'
     }
 }
 
 def trigger_notification(
     IFTTT_key: str,
+    action_name: str,
 ) -> None:
     """
     Trigger notification via IFTTT.
     
     Parameters:
-        trigger_type: str
-            The trigger type.
+        action_name: str
+            The action type.
         IFTTT_key: str
             The IFTTT key.
     
@@ -63,7 +68,7 @@ def trigger_notification(
     for key, value in trigger_conf.items():
         if value['enabled'] and trigger_vals[key] >= value['threshold']:
             logger.info(f'Triggering {key} notification.')
-            IFTTT_action(key, IFTTT_key)
+            IFTTT_action(value['action'], IFTTT_key)
 
 
 def IFTTT_action(
@@ -140,6 +145,13 @@ if __name__ == '__main__':
     logger = logging.getLogger('GCP_notification')
     logger.setLevel(logging.DEBUG)
     logger.info(f'Starting GCP notification script at {time.time()}.')
+
+    if not locals().get('trigger_conf'):
+        with open('trigger.conf', 'r') as stream:
+            try:
+                trigger_conf = yaml.safe_load(stream)['triggers']
+            except FileNotFoundError:
+                print('Configuration not found.')
 
     while True:
         logger.info('Checking for triggers.')
