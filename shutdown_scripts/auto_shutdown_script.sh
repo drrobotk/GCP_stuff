@@ -101,7 +101,7 @@ poweroff_triggers () {
     fi
 }
 
-get_dict () {
+get_dict_val () {
     # Function to get the value of a key from a dictionary.
 
 	local _key="$1"
@@ -133,9 +133,9 @@ main () {
     echo "Started script at: $(date)." >> script.log
 
     # Get flags for each trigger.
-    day_of_week_check=$(get_dict "day_of_week" "${trigger_check_dict[@]}")
-    time_of_day_check=$(get_dict "time_of_day" "${trigger_check_dict[@]}")
-    load_average_check=$(get_dict "load_average" "${trigger_check_dict[@]}")
+    day_of_week_check=$(get_dict_val "day_of_week" "${trigger_check_dict[@]}")
+    time_of_day_check=$(get_dict_val "time_of_day" "${trigger_check_dict[@]}")
+    load_average_check=$(get_dict_val "load_average" "${trigger_check_dict[@]}")
     
     while true
     do
