@@ -11,13 +11,14 @@ This module provides the following functions:
 * :func:`get_cpu_usage`
 """
 
-import requests, os, psutil, time
+import requests, os, psutil, time, logging
 
 # Declare global variables for trigger configuration.
 CPU_threshold = 90
 RAM_threshold = 8
 load_threshold = 1.5
 return_status_vals = [0,1]
+trigger_check_period = 1 # In minutes.
 
 trigger_conf = {
     'cpu': {
@@ -53,17 +54,16 @@ def trigger_notification(
     Returns:
         None
     """
-    while True:
-        trigger_vals = {
-            'cpu': get_cpu_usage(),
-            'ram': get_ram_usage()['percentage_available'],
-            'load': get_load_averages()['1min'],
-            'return': return_value_check()
-        }
-        for key, value in trigger_conf.items():
-            if value['enabled'] and trigger_vals[key] >= value['threshold']:
-                IFTTT_action(key, IFTTT_key)
-        time.sleep(60)
+    trigger_vals = {
+        'cpu': get_cpu_usage(),
+        'ram': get_ram_usage()['percentage_available'],
+        'load': get_load_averages()['1min'],
+        'return': return_value_check()
+    }
+    for key, value in trigger_conf.items():
+        if value['enabled'] and trigger_vals[key] >= value['threshold']:
+            logger.info(f'Triggering {key} notification.')
+            IFTTT_action(key, IFTTT_key)
 
 
 def IFTTT_action(
@@ -134,3 +134,16 @@ def return_value_check():
     scripts = ['test1.py', 'test2.py']
     for i, script in enumerate(scripts):
         return os.path.exists(i), script
+
+
+if __name__ == '__main__':
+    logger = logging.getLogger('GCP_notification')
+    logger.setLevel(logging.DEBUG)
+    logger.info(f'Starting GCP notification script at {time.time()}.')
+
+    while True:
+        logger.info('Checking for triggers.')
+        trigger_notification(
+            IFTTT_key=os.environ['IFTTT_key']
+        )
+        time.sleep(trigger_check_period*60)
