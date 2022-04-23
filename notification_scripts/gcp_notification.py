@@ -4,14 +4,39 @@ triggers on GCP.
 
 This module provides the following functions:
 
-* :func:`trigger_notification`
+* :func:`trigger_notification` (main entry point)
 * :func:`IFTTT_action`
 * :func:`get_load_averages`
 * :func:`get_ram_usage`
 * :func:`get_cpu_usage`
 """
 
-import requests, os, psutil
+import requests, os, psutil, time
+
+# Declare global variables for trigger configuration.
+CPU_threshold = 90
+RAM_threshold = 8
+load_threshold = 1.5
+return_status_vals = [0,1]
+
+trigger_conf = {
+    'cpu': {
+        'enabled': True,
+        'threshold': CPU_threshold
+    },
+    'ram': {
+        'enabled': True,
+        'threshold': RAM_threshold
+    },
+    'load': {
+        'enabled': True,
+        'threshold': load_threshold
+    },
+    'return_status': {
+        'enabled': True,
+        'values': return_status_vals
+    }
+}
 
 def trigger_notification(
     IFTTT_key: str,
@@ -28,27 +53,17 @@ def trigger_notification(
     Returns:
         None
     """
-    cpu_threshold = 90
-    trigger_dict = {
-        'cpu_trigger': [True, cpu_threshold],
-        'ram_trigger': [True, 90],
-        'load_trigger': [True, 1.5],
-        'return_trigger': [True]
-    }
-    for key, value in trigger_dict.items():
-        if value[0]:
-            if key == 'cpu_trigger':
-                if get_cpu_usage() > value[1]:
-                    IFTTT_action('cpu_trigger', IFTTT_key)
-            elif key == 'ram_trigger':
-                if get_ram_usage('percentage_available') < value[1]:
-                    IFTTT_action('ram_trigger', IFTTT_key)
-            elif key == 'load_trigger':
-                if get_load_averages()['1min'] > value[1]:
-                    IFTTT_action('load_trigger', IFTTT_key)
-            elif key == 'return_trigger':
-                if return_value_check()[0]:
-                    IFTTT_action('return_trigger', IFTTT_key)
+    while True:
+        trigger_vals = {
+            'cpu': get_cpu_usage(),
+            'ram': get_ram_usage()['percentage_available'],
+            'load': get_load_averages()['1min'],
+            'return': return_value_check()
+        }
+        for key, value in trigger_conf.items():
+            if value['enabled'] and trigger_vals[key] >= value['threshold']:
+                IFTTT_action(key, IFTTT_key)
+        time.sleep(60)
 
 
 def IFTTT_action(
@@ -69,6 +84,7 @@ def IFTTT_action(
     """
     requests.post(f'https://maker.ifttt.com/trigger/{action}/with/key/{key}')
 
+
 def get_load_averages():
     """
     Get the load averages.
@@ -79,6 +95,7 @@ def get_load_averages():
     """
     load1, load5, load15 = os.getloadavg()
     return {'1min': load1, '5min': load5, '15min': load15}
+
 
 def get_ram_usage(key: str = None) -> None:
     """
@@ -94,6 +111,7 @@ def get_ram_usage(key: str = None) -> None:
         return psutil.virtual_memory()._asdict()[key]
     return psutil.virtual_memory()._asdict()
 
+
 def get_cpu_usage(interval: int = 1) -> None:
     """
     Get the CPU usage.
@@ -103,6 +121,7 @@ def get_cpu_usage(interval: int = 1) -> None:
             The CPU usage.
     """
     return psutil.cpu_percent(interval=interval)
+
 
 def return_value_check():
     """
