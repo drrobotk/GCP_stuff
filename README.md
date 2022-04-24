@@ -37,21 +37,3 @@ See the `README.md` in each directory for more information on each script.
         ├── gcp_setup.sh
         ├── gcp_vscode_setup.py
         └── helpers.py
-
-See the `README.md` in each directory for more information on each script.
-### Directory layout:
-    .
-    ├── LICENSE
-    ├── README.md
-    ├── notification_scripts
-    │   ├── README.md
-    │   ├── gcp_notification.py
-    │   └── trigger.conf
-    ├── shutdown_scripts
-    │   ├── README.md
-    │   └── auto_shutdown_script.sh
-    └── vscode_setup
-        ├── README.md
-        ├── gcp_setup.sh
-        ├── gcp_vscode_setup.py
-        └── helpers.py
