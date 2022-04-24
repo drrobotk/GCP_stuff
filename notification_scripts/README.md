@@ -1,5 +1,7 @@
 ## GCP Notification scripts
 
+## IFTTT
+
 This Script will send notifications to the user (via emai, sms, slack, phone, etc.) for triggers on GCP. These triggers would also need to be set up on the IFTTT (IF This Then That) website.
 
 <img src="https://user-images.githubusercontent.com/51001263/164946362-da457b19-99f2-47fb-a770-165107f7a445.png" width="300" height="200" />
