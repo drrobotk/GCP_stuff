@@ -3,15 +3,7 @@
 A collection of helpful scripts for Virtual Machine (VM) Instances on the Google Cloud Platform (GCP).
 
 These scripts have been tested with VM instances created from the Vertex AI workbench.
-## Scripts
 
-Current available scripts are:
-
-# GCP Stuff
-
-A collection of helpful scripts for Virtual Machine (VM) Instances on the Google Cloud Platform (GCP).
-
-These scripts have been tested with VM instances created from the Vertex AI workbench.
 ## Scripts
 
 Current available scripts are:
