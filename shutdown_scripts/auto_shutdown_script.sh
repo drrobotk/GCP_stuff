@@ -75,7 +75,7 @@ load_average () {
         # poweroff.
         if [ $i == $consecutive_checks ]
         then
-            poweroff "VM is idle after $count checks."
+            poweroff "VM is idle after $i checks."
         fi
         sleep 60
 
