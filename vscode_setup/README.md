@@ -1,8 +1,7 @@
 ## GCP VScode setup (EXPERIMENTAL!)
 VScode setup script to connect to a VM instance on GCP via SSH.
 
-You can use this script to install and initialize the gcloud-sdk for a project, create ssh keys locally, add them to the VM instance and setup the SSH extension
-in VScode. You can optionally create a bash script for the setup steps instead of execution.
+You can use this script to install and initialize the gcloud-sdk for a project, create ssh keys locally, add them to the VM instance and setup the SSH extension in VScode. You can optionally create a bash script for the setup steps instead of execution.
 
 # Usage
 Before you run the script, a notebook should be created for the VM instance on GCP within a project e.g from the Vertex AI
