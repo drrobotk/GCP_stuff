@@ -99,7 +99,7 @@ This will require a certain level of access on the project, and if you get the f
 ```
 ERROR: (gcloud.projects.add-iam-policy-binding) User [USER-EMAIL] does not have permission to access projects instance [PROJECT-NAME]
 ```
-Then you may need to ask the project owner to udate the add the role to your account. You can see view the roles and permissions from:
+Then you may need to ask the project owner(s) to the add the role to your account. You can see view the roles and permissions from:
 ```bash
 gcloud projects get-iam-policy PROJECT_ID --format=json
 ```
