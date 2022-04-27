@@ -101,11 +101,11 @@ ERROR: (gcloud.projects.add-iam-policy-binding) User [USER-EMAIL] does not have 
 ```
 Then you may need to ask the project owner to udate the add the role to your account. You can see view the roles and permissions from:
 ```bash
-gcloud projects get-iam-policy low-cost-items-index --format=json
+gcloud projects get-iam-policy PROJECT_ID --format=json
 ```
 After this has been completed, you need to establish the connection by running:
 ```bash
-gcloud compute ssh USERNAME@INSTANCE_NAME --project=PROJECT_ID --tunnel-through-iap --zone=europe-west2-a -- -P 22
+gcloud compute ssh USERNAME@INSTANCE_NAME --project=PROJECT_ID --tunnel-through-iap --zone=ZONE-- -P 22
 ```
 IAP TCP tunnels data through the domain `tunnel.cloudproxy.app`. This domain is owned by Google. You should ensure you are not blocking any traffic to this domain. If you block traffic to this domain you will be unable to use IAP for TCP and you may see the error message:
 ```
