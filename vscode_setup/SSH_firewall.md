@@ -88,7 +88,7 @@ or by using the `Remote - SSH` extension on vscode.
 Identity-Aware Proxy (IAP) is a managed service that can control the access to your VM. It allows you to authenticate user TCP traffic through IAP before sending it to your VM instances. This also works for private VM’s without an external IP address.
 
 
-<img src="https://binx.io/wp-content/uploads/2020/02/iap-tcp-forwarding-diagram.png" width="50%" />
+<img src="https://binx.io/wp-content/uploads/2020/02/iap-tcp-forwarding-diagram.png" width="55%" />
 
 In order to establish the connection over IAP, we need to add the firewall rules and user role to your account. This can be done directly via the webbrowser within the Compute Engine section, but here we will do this via the gcloud CLI.
 
