@@ -5,7 +5,7 @@ Sometimes firewalls refuse to allow SSH connections entirely. In such cases, we 
 ## Method 1: SSH over HTTPS
 In this method, we will explain how you can make a SSH connection over the HTTPS port. Most firewall rules should allow this, but some proxy servers may interfere.
 
-![SSH GCP s](https://cloud.google.com/solutions/images/bastion.png)
+<img src="https://cloud.google.com/solutions/images/bastion.png" width="45%" />
 
 Firstly, within your VM instance (either SSH via the web browser from the Compute Engine -> VM Instances section or a terminal within a notebook) we need to append the `/etc/ssh/sshd_config` file to change the default SSH port from 22 to 443. We can do this directly by running:
 
@@ -87,7 +87,8 @@ or by using the `Remote - SSH` extension on vscode.
 ## Method 2: SSH over IAP
 Identity-Aware Proxy (IAP) is a managed service that can control the access to your VM. It allows you to authenticate user TCP traffic through IAP before sending it to your VM instances. This also works for private VM’s without an external IP address.
 
-![IAP TCP forwarding diagram](https://binx.io/wp-content/uploads/2020/02/iap-tcp-forwarding-diagram.png)
+
+<img src="https://binx.io/wp-content/uploads/2020/02/iap-tcp-forwarding-diagram.png" width="55%" />
 
 In order to establish the connection over IAP, we need to add the firewall rules and user role to your account. This can be done directly via the webbrowser within the Compute Engine section, but here we will do this via the gcloud CLI.
 
