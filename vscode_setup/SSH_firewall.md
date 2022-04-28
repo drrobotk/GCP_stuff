@@ -5,6 +5,8 @@ Sometimes firewalls refuse to allow SSH connections entirely. In such cases, we 
 ## Method 1: SSH over HTTPS
 In this method, we will explain how you can make a SSH connection over the HTTPS port. Most firewall rules should allow this, but some proxy servers may interfere.
 
+![SSH GCP s](https://cloud.google.com/solutions/images/bastion.png)
+
 Firstly, within your VM instance (either SSH via the web browser from the Compute Engine -> VM Instances section or a terminal within a notebook) we need to append the `/etc/ssh/sshd_config` file to change the default SSH port from 22 to 443. We can do this directly by running:
 
 ```bash
