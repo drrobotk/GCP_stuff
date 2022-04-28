@@ -27,7 +27,7 @@ gcloud compute firewall-rules create allow-ssh-via-https --action=allow --rules=
 ```
 Now we can generate the SSH keys and test the connection by running:
 ```bash
-gcloud compute ssh USERNAME@INSTANCE_NAME --project=PROJECT_ID--zone=ZONE -- -P 443
+gcloud compute ssh USERNAME@INSTANCE_NAME --project=PROJECT_ID --zone=ZONE -- -P 443
 ```
 This should open a PuTTY window which will connect to the VM. If successful, you should see the bash terminal appear from your VM.
 
@@ -85,6 +85,8 @@ or by using the `Remote - SSH` extension on vscode.
 ## Method 2: SSH over IAP
 Identity-Aware Proxy (IAP) is a managed service that can control the access to your VM. It allows you to authenticate user TCP traffic through IAP before sending it to your VM instances. This also works for private VM’s without an external IP address.
 
+![IAP TCP forwarding diagram](https://binx.io/wp-content/uploads/2020/02/iap-tcp-forwarding-diagram.png)
+
 In order to establish the connection over IAP, we need to add the firewall rules and user role to your account. This can be done directly via the webbrowser within the Compute Engine section, but here we will do this via the gcloud CLI.
 
 Firstly, we need run the following command to set up the firewall rule to allow connection from IAP:
@@ -129,4 +131,4 @@ gcloud config set proxy/password XXXXXXXXXXXX
 gcloud config set custom_ca_certs_file /Users/user01/gce/certs/corpcerts.pem
 ```
 
-If you have any issues with any of the methods or steps above, please see the [troubleshooting ssh](https://cloud.google.com/compute/docs/troubleshooting/troubleshooting-ssh) user guide.
+If you have any issues with any of the methods or steps above, please see the [troubleshooting ssh](https://cloud.google.com/compute/docs/troubleshooting/troubleshooting-ssh) user guide. Also the [using IAP for tcp forwarding](https://cloud.google.com/iap/docs/using-tcp-forwarding) user guide.
