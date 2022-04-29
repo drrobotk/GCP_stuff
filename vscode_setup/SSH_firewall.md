@@ -1,7 +1,7 @@
 # Connect to a GCP VM instance via SSH behind a firewall
 #### Dr. Usman Kayani
 
-Sometimes firewalls refuse to allow SSH connections entirely. In such cases, we can establish an SSH connection via HTTPS or IAP.
+Sometimes firewalls refuse to allow SSH connections entirely. In such cases, we can establish a SSH connection via HTTPS or IAP.
 
 ## Method 1: SSH over HTTPS
 In this method, we will explain how you can make a SSH connection over the HTTPS port. Most firewall rules should allow this, but some proxy servers may interfere.
