@@ -10,8 +10,6 @@ These scripts have been tested with VM instances created from the Vertex AI work
 
 ## Scripts
 
-Current available scripts are:
-
 * GCP notification script with various triggers: [`notification_scripts/gcp_notification.py`](https://github.com/drrobotk/GCP_stuff/blob/main/notification_scripts/gcp_notification.py) (python) 
 [README.md](https://github.com/drrobotk/GCP_stuff/blob/main/notification_scripts/README.md)
 * GCP auto shutdown script with various triggers: [`shutdown_scripts/auto_shutdown_script.sh`](https://github.com/drrobotk/GCP_stuff/blob/main/shutdown_scripts/auto_shutdown_script.sh) (bash) 
