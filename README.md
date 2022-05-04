@@ -4,6 +4,10 @@ A collection of helpful scripts for Virtual Machine (VM) Instances on the Google
 
 These scripts have been tested with VM instances created from the Vertex AI workbench.
 
+## Guides
+
+*  [Connect to a GCP VM instance via SSH behind a firewall](https://github.com/drrobotk/GCP_stuff/blob/main/vscode_setup/SSH_firewall.md)
+
 ## Scripts
 
 Current available scripts are:
