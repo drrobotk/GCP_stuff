@@ -25,7 +25,7 @@ def gcp_vscode_setup(
     vm_instance_name: str,
     vm_ip: str,
     vm_zone: str = 'europe-west2-a',
-    sdk_version: str = '381.0.0',
+    sdk_version: str = '387.0.0',
     bash_script: str = False,
 ) -> None:
     '''
