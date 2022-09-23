@@ -5,15 +5,15 @@ sudo tar -xvf google-cloud-cli-381.0.0-darwin-arm.tar.gz
 
 ./google-cloud-sdk/install.sh 
 ./google-cloud-sdk/bin/gcloud init 
-./google-cloud-sdk/bin/gcloud config set project project_name
+./google-cloud-sdk/bin/gcloud config set project ons-tddcp-data-collection
 
-gcloud compute ssh —-project=project_name --zone=europe-west2-a test_domain_com@vm_name1 --command="sudo chown -R test_domain_com /home/jupyter/" --quiet
-gcloud compute os-login ssh-keys add --key-file=~/.ssh/google_compute_engine.pub --project=project_name --quiet
+~/google-cloud-sdk/bin/gcloud compute ssh usman_kayani_ons_gov_uk@usman --project=ons-tddcp-data-collection --zone=europe-west2-a --command="sudo chown -R usman_kayani_ons_gov_uk /home/jupyter/"
+~/google-cloud-sdk/bin/gcloud compute os-login ssh-keys add --key-file=/Users/usmankayani/.ssh/google_compute_engine.pub --project=ons-tddcp-data-collection --quiet
 
 code --install-extension ms-vscode-remote.remote-ssh
 tee -a ~/.ssh/config << END
-Host vm_name1
-    HostName 1.1.1.1
+Host usman
+    HostName 34.142.46.174
     IdentityFile ~/.ssh/google_compute_engine
-    User test_domain_com
+    User usman_kayani_ons_gov_uk
 END

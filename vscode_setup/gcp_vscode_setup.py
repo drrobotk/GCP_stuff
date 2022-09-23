@@ -69,8 +69,8 @@ def gcp_vscode_setup(
 
     vm_jupyter_permissions = f'sudo chown -R {gcp_username} /home/jupyter/'
     generate_ssh_keys = f'''
-    gcloud compute ssh {gcp_username}@{vm_instance_name} --project={project_id} --zone={vm_zone} --command="{vm_jupyter_permissions}" --quiet
-    gcloud compute os-login ssh-keys add --key-file=~/.ssh/google_compute_engine.pub --project={project_id} --quiet'''
+    ./google-cloud-sdk/bin/gcloud compute ssh {gcp_username}@{vm_instance_name} --project={project_id} --zone={vm_zone} --command="{vm_jupyter_permissions}" --quiet
+    ./google-cloud-sdk/bin/gcloud compute os-login ssh-keys add --key-file=~/.ssh/google_compute_engine.pub --project={project_id} --quiet'''
 
     vscode_ssh_setup = f'''
     code --install-extension ms-vscode-remote.remote-ssh
@@ -88,12 +88,11 @@ def gcp_vscode_setup(
         (generate_ssh_keys, "Generating SSH keys..."),
         (vscode_ssh_setup, "Setting up SSH extension..."),
     ]
-
-    setup_steps = [textwrap.dedent(lines) for lines in setup_steps]
+    setup_steps = [(textwrap.dedent(lines[0]), lines[1]) for lines in setup_steps]
 
     if bash_script:
         output_file = open('gcp_setup.sh', 'w')
-        output_file.write('\n'.join(setup_steps))
+        output_file.write('\n'.join([lines[0] for lines in setup_steps]))
         output_file.close()
     else:
         total_steps = len(setup_steps)
@@ -116,7 +115,7 @@ if __name__ == '__main__':
     parser.add_argument('--vm_zone', type=str, metavar='vm_zone', help='VM instance zone on GCP.', default='europe-west2-a', required=False)
     parser.add_argument('--sdk_version', type=str, metavar='sdk_version', help='GCP SDK version.', default='381.0.0', required=False)
     parser.add_argument('--bash_script', type=bool, metavar='bash_script', help='Export setup as bash script.', default=False, required=False)
-    parser.add_argument('-h', '--help', action='store_true', help='show this help message and exit', required=False)
+    #parser.add_argument('-h', '--help', action='store_true', help='show this help message and exit', required=False)
 
     args = parser.parse_args()
 
