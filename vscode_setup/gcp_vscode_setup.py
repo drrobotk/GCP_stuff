@@ -13,7 +13,7 @@ in vscode. You can optionally create a bash script for the setup steps.
 A notebook should be created for the VM instance on GCP e.g from the Vertex AI
 workbench. The VM IP address can be found from the compute engine metadata.
 """
-import subprocess, textwrap, argparse
+import subprocess, textwrap, argparse, os
 
 from helpers import progress_bar
 
@@ -66,11 +66,12 @@ def gcp_vscode_setup(
     ./google-cloud-sdk/bin/gcloud config set project {project_id}'''
 
     gcp_username = email.replace('@', '_').replace('.', '_')
+    home_dir = os.path.expanduser('~')
 
     vm_jupyter_permissions = f'sudo chown -R {gcp_username} /home/jupyter/'
     generate_ssh_keys = f'''
     ./google-cloud-sdk/bin/gcloud compute ssh {gcp_username}@{vm_instance_name} --project={project_id} --zone={vm_zone} --command="{vm_jupyter_permissions}" --quiet
-    ./google-cloud-sdk/bin/gcloud compute os-login ssh-keys add --key-file=~/.ssh/google_compute_engine.pub --project={project_id} --quiet'''
+    ./google-cloud-sdk/bin/gcloud compute os-login ssh-keys add --key-file={home_dir}/.ssh/google_compute_engine.pub --project={project_id} --quiet'''
 
     vscode_ssh_setup = f'''
     code --install-extension ms-vscode-remote.remote-ssh
