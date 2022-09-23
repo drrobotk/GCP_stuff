@@ -8,7 +8,7 @@ sudo tar -xvf google-cloud-cli-381.0.0-darwin-arm.tar.gz
 ./google-cloud-sdk/bin/gcloud config set project project_name
 
 gcloud compute ssh —-project=project_name --zone=europe-west2-a test_domain_com@vm_name1 --command="sudo chown -R test_domain_com /home/jupyter/" --quiet
-gcloud compute os-login ssh-keys add --key-file=~/.ssh/google_compute_engine.pub —-project=project_name --quiet
+gcloud compute os-login ssh-keys add --key-file=~/.ssh/google_compute_engine.pub --project=project_name --quiet
 
 code --install-extension ms-vscode-remote.remote-ssh
 tee -a ~/.ssh/config << END
