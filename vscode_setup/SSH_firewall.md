@@ -32,6 +32,10 @@ You may need to ask the project owner(s) to the add the role to add firewall rul
 ```bash
 gcloud projects get-iam-policy PROJECT_ID --format=json
 ```
+You can start the VM instance by running:
+```bash
+gcloud compute instances start INSTANCE_NAME
+```
 Now we can generate the SSH keys and test the connection by running:
 ```bash
 gcloud compute ssh USERNAME@INSTANCE_NAME --project=PROJECT_ID --zone=ZONE -- -P 443
